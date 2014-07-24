@@ -4,16 +4,24 @@ import java.util.*;
 public class Tokenizer {
 
 	BufferedReader br;
+	StreamTokenizer st = null;
 
 	Tokenizer(BufferedReader br) {
 		this.br = br;
 	}
 
 	public void run(Vector<Token> tokens, SymbolTable sb){
-		StreamTokenizer st = null;
 
 		try {
 			st = new StreamTokenizer(br);
+			if (st.nextToken() != StreamTokenizer.TT_EOF) {
+				
+			}
+			
+			if(st.nextToken() == StreamTokenizer.TT_WORD && st.ttype != StreamTokenizer.TT_EOF) {
+				
+			}
+			
 			while (st.nextToken() != StreamTokenizer.TT_EOF) {
 				if (String.valueOf((char) st.ttype).equals("\'")) {
 					tokens.add(new Token(Token.TokenType.CHAR, st.sval, 0.0));
@@ -44,26 +52,26 @@ public class Tokenizer {
 		case "WHILE": 
 			tt = Token.TokenType.WHILE_DECL; 
 			break;
-		case "int": 
+		case "INT": 
 			tt = Token.TokenType.INT_TYPE; 
 			break;
-		case "char": 
+		case "CHAR": 
 			tt = Token.TokenType.CHAR_TYPE; 
 			break;
-		case "bool": 
+		case "BOOL": 
 			tt = Token.TokenType.BOOL_TYPE; 
 			break;
-		case "true": 
+		case "TRUE": 
 			tt = Token.TokenType.BOOL; 
 			break;
-		case "false": 
+		case "FALSE": 
 			tt = Token.TokenType.BOOL; 
 			break;
 		default:
 			tt = Token.TokenType.ID;
-        	sval = word;
         	break;
 		}
+		sval = word;
 		return(new Token(tt, sval, 0.0));
 	}
 

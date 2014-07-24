@@ -3,6 +3,7 @@ import java.io.*;
 public class Token {
   
 	public enum TokenType {
+		PROG_NAME,
 		ATTR, //Attribution
 		INT_TYPE, CHAR_TYPE, BOOL_TYPE, 
 		IF_DECL, ELSE_DECL, 
