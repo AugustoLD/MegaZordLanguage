@@ -18,8 +18,11 @@ public class Tokenizer {
 			}
 			
 			while (st.nextToken() != StreamTokenizer.TT_EOF) {
+				
 				if (String.valueOf((char) st.ttype).equals("\'")) {
 					tokens.add(new Token(Token.TokenType.CHAR, st.sval, 0.0, st.lineno()));
+				} else if (String.valueOf((char) st.ttype).equals("\"")) {
+					tokens.add(new Token(Token.TokenType.STRING, st.sval, 0.0, st.lineno()));
 				} else if (st.ttype == StreamTokenizer.TT_NUMBER) {
 					tokens.add(new Token(Token.TokenType.NUMBER, "", st.nval, st.lineno()));
 				} else if(st.ttype == StreamTokenizer.TT_WORD) {
@@ -78,6 +81,9 @@ public class Tokenizer {
 		case "FALSE": 
 			tt = Token.TokenType.BOOL; 
 			break;
+		case "PRINT": 
+			tt = Token.TokenType.PRINT; 
+			break;
 		default:
 			tt = Token.TokenType.ID;
 			word = parseIdName(word);
@@ -94,7 +100,7 @@ public class Tokenizer {
 		switch(simbolo) {
 		case "=": 
 				if(st.nextToken() == '=') {
-					tt = Token.TokenType.EQUAL;
+					tt = Token.TokenType.EQ;
 					simbolo += '=';
 				} else {
 					tt = Token.TokenType.ATTR;
@@ -102,10 +108,10 @@ public class Tokenizer {
 				}
 				break;
 		case "+": 
-			tt = Token.TokenType.SUM; 
+			tt = Token.TokenType.PLUS; 
 			break;
 		case "-": 
-			tt = Token.TokenType.DIF; 
+			tt = Token.TokenType.MINUS; 
 			break;
 		case "*":
 			tt = Token.TokenType.MULT; 
@@ -115,44 +121,47 @@ public class Tokenizer {
 			break;
 		case ">":
 			if(st.nextToken() == '=') {
-				tt = Token.TokenType.GREATEREQUAL;
+				tt = Token.TokenType.GE;
 				simbolo += '=';
 			} else {
-				tt = Token.TokenType.GREATERTHAN;
+				tt = Token.TokenType.GT;
 				st.pushBack();
 			}
 			break;
 		case "<":
 			if(st.nextToken() == '=') {
-				tt = Token.TokenType.LESSEREQUAL;
+				tt = Token.TokenType.LE;
 				simbolo += '=';
 			} else {
-				tt = Token.TokenType.LESSERTHAN;
+				tt = Token.TokenType.LT;
 				st.pushBack();
 			}
 			break;
 		case "!": 
 			if(st.nextToken() == '=') {
-				tt = Token.TokenType.NOTEQUAL;
+				tt = Token.TokenType.NE;
 				simbolo += '=';
 			} else {
 				st.pushBack();
 			}
 			break;
 		case "(": 
-			tt = Token.TokenType.OPEN_PAR; 
+			tt = Token.TokenType.L_PAR; 
 			break;
 		case ")": 
-			tt = Token.TokenType.CLOSE_PAR; 
+			tt = Token.TokenType.R_PAR; 
 			break;
 		case "{": 
-			tt = Token.TokenType.OPEN_KEY;
+			tt = Token.TokenType.L_BRACE;
 			break;
 		case "}": 
-			tt = Token.TokenType.CLOSE_KEY; 
+			tt = Token.TokenType.R_BRACE; 
 			break;
 		case ";": 
 			tt = Token.TokenType.SEMICOLLON;
+			break;
+		case ",": 
+			tt = Token.TokenType.COMMA;
 			break;
 		}
 		return(new Token(tt, simbolo, 0.0, st.lineno()));

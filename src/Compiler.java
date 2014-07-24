@@ -10,11 +10,11 @@ public class Compiler {
 		SymbolTable tabelaSimbolos = null;
 	  
 		try {
-			br = new BufferedReader(new FileReader("example.mz"));
+			br = new BufferedReader(new FileReader(args[0]));
 			tok = new Tokenizer(br);
 			tok.run(tokenList, tabelaSimbolos);
 
-			Iterator it = tokenList.iterator();
+			Iterator<Token> it = tokenList.iterator();
 	  
 			while(it.hasNext()){
 				System.out.println(it.next().toString());

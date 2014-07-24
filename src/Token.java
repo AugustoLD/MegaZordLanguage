@@ -1,19 +1,16 @@
-import java.io.*;
-
 public class Token {
   
 	public enum TokenType {
-		PROG_NAME,
-		ATTR, //Attribution
+		ATTR,
 		INT_TYPE, CHAR_TYPE, BOOL_TYPE, 
 		IF_DECL, ELSE_DECL, 
 		WHILE_DECL,
-		NUMBER, CHAR, BOOL,
-		ID, 
-		SUM, DIF, MULT, DIV,
-		EQUAL, LESSERTHAN, GREATERTHAN, LESSEREQUAL, GREATEREQUAL, NOTEQUAL,
-		SEMICOLLON,
-		OPEN_PAR, CLOSE_PAR,OPEN_KEY, CLOSE_KEY;
+		NUMBER, CHAR, BOOL, STRING,
+		ID, PROG_NAME, PRINT,
+		PLUS, MINUS, MULT, DIV,
+		EQ, NE, LT, GT, LE, GE,
+		COMMA, SEMICOLLON,
+		L_PAR, R_PAR,L_BRACE, R_BRACE;
 	};
 
 	TokenType tipo;
@@ -43,7 +40,7 @@ public class Token {
 	}
 
 	public String toString() {
-		return("<" + tipo +", "+ position +", " + key + ", " + numValue +", " + line + ">");
+		return("<" + tipo +", " + key + ", " + numValue +", " + line + ">");
 	}
 	
 	public int getPosition(){
