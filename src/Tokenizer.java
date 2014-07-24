@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.*;
 
 public class Tokenizer {
-
+	StreamTokenizer st = null;
 	BufferedReader br;
 	StreamTokenizer st = null;
 
@@ -11,6 +11,10 @@ public class Tokenizer {
 	}
 
 	public void run(Vector<Token> tokens, SymbolTable sb){
+<<<<<<< HEAD
+=======
+		st = null;
+>>>>>>> 794a142d171a6ad2319eba7901a7860938918d4e
 
 		try {
 			st = new StreamTokenizer(br);
@@ -24,9 +28,9 @@ public class Tokenizer {
 			
 			while (st.nextToken() != StreamTokenizer.TT_EOF) {
 				if (String.valueOf((char) st.ttype).equals("\'")) {
-					tokens.add(new Token(Token.TokenType.CHAR, st.sval, 0.0));
+					tokens.add(new Token(Token.TokenType.CHAR, st.sval, 0.0, st.lineno()));
 				} else if (st.ttype == StreamTokenizer.TT_NUMBER) {
-					tokens.add(new Token(Token.TokenType.NUMBER, "", st.nval));
+					tokens.add(new Token(Token.TokenType.NUMBER, "", st.nval, st.lineno()));
 				} else if(st.ttype == StreamTokenizer.TT_WORD) {
 					tokens.add(buildWordToken(st.sval));
 				} else if ((st.ttype != StreamTokenizer.TT_EOF) || (st.ttype != StreamTokenizer.TT_EOL)) {
@@ -44,7 +48,7 @@ public class Tokenizer {
 
 		switch(word.toUpperCase()) {
 		case "IF": 
-			tt = Token.TokenType.IF_DECL; 
+			tt = Token.TokenType.IF_DECL;
 			break;
 		case "ELSE": 
 			tt = Token.TokenType.ELSE_DECL; 
@@ -71,8 +75,12 @@ public class Tokenizer {
 			tt = Token.TokenType.ID;
         	break;
 		}
+<<<<<<< HEAD
 		sval = word;
 		return(new Token(tt, sval, 0.0));
+=======
+		return(new Token(tt, sval, 0.0, st.lineno()));
+>>>>>>> 794a142d171a6ad2319eba7901a7860938918d4e
 	}
 
 	private Token buildSimbolToken(int val){
@@ -114,7 +122,7 @@ public class Tokenizer {
 			tt = Token.TokenType.NE; 
 			break;
 		}
-		return(new Token(tt, simbolo, 0.0));
+		return(new Token(tt, simbolo, 0.0, st.lineno()));
 	}
 	
 }
