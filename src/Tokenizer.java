@@ -43,6 +43,7 @@ public class Tokenizer {
 				else if(st.ttype == '_')
 					word += '_';
 			}
+			st.pushBack();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -86,13 +87,19 @@ public class Tokenizer {
 		return(new Token(tt, word, 0.0, st.lineno()));
 	}
 
-	private Token buildSimbolToken(int val){
+	private Token buildSimbolToken(int val) throws IOException{
 		Token.TokenType tt = null;
 		String simbolo = String.valueOf((char) val);
 
 		switch(simbolo) {
 		case "=": 
-				tt = Token.TokenType.ATTR; 
+				if(st.nextToken() == '=') {
+					tt = Token.TokenType.EQUAL;
+					simbolo += '=';
+				} else {
+					tt = Token.TokenType.ATTR;
+					st.pushBack();
+				}
 				break;
 		case "+": 
 			tt = Token.TokenType.SUM; 
@@ -106,23 +113,31 @@ public class Tokenizer {
 		case "/": 
 			tt = Token.TokenType.DIV;
 			break;
-		case "==": 
-			tt = Token.TokenType.EQ; 
+		case ">":
+			if(st.nextToken() == '=') {
+				tt = Token.TokenType.GREATEREQUAL;
+				simbolo += '=';
+			} else {
+				tt = Token.TokenType.GREATERTHAN;
+				st.pushBack();
+			}
 			break;
-		case ">": 
-			tt = Token.TokenType.GT; 
+		case "<":
+			if(st.nextToken() == '=') {
+				tt = Token.TokenType.LESSEREQUAL;
+				simbolo += '=';
+			} else {
+				tt = Token.TokenType.LESSERTHAN;
+				st.pushBack();
+			}
 			break;
-		case "<": 
-			tt = Token.TokenType.LT; 
-			break;
-		case ">=": 
-			tt = Token.TokenType.GE; 
-			break;
-		case "<=": 
-			tt = Token.TokenType.LE; 
-			break;
-		case "!=": 
-			tt = Token.TokenType.NE; 
+		case "!": 
+			if(st.nextToken() == '=') {
+				tt = Token.TokenType.NOTEQUAL;
+				simbolo += '=';
+			} else {
+				st.pushBack();
+			}
 			break;
 		case "(": 
 			tt = Token.TokenType.OPEN_PAR; 

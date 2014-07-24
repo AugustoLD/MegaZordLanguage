@@ -11,8 +11,7 @@ public class Token {
 		NUMBER, CHAR, BOOL,
 		ID, 
 		SUM, DIF, MULT, DIV,
-		//Equal, LesserThan, GreaterThan, LesserOrEqual, GreaterOrEqual, NotEqual
-		EQ, LT, GT, LE, GE, NE,
+		EQUAL, LESSERTHAN, GREATERTHAN, LESSEREQUAL, GREATEREQUAL, NOTEQUAL,
 		SEMICOLLON,
 		OPEN_PAR, CLOSE_PAR,OPEN_KEY, CLOSE_KEY;
 	};
