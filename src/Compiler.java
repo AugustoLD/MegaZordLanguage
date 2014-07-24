@@ -10,7 +10,7 @@ public class Compiler {
 		SymbolTable tabelaSimbolos = null;
 	  
 		try {
-			br = new BufferedReader(new FileReader(args[0]));
+			br = new BufferedReader(new FileReader("example.mz"));
 			tok = new Tokenizer(br);
 			tok.run(tokenList, tabelaSimbolos);
 
