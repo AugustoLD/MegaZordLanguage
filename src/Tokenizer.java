@@ -2,7 +2,6 @@ import java.io.*;
 import java.util.*;
 
 public class Tokenizer {
-	StreamTokenizer st = null;
 	BufferedReader br;
 	StreamTokenizer st = null;
 
@@ -11,19 +10,11 @@ public class Tokenizer {
 	}
 
 	public void run(Vector<Token> tokens, SymbolTable sb){
-<<<<<<< HEAD
-=======
-		st = null;
->>>>>>> 794a142d171a6ad2319eba7901a7860938918d4e
-
 		try {
 			st = new StreamTokenizer(br);
-			if (st.nextToken() != StreamTokenizer.TT_EOF) {
-				
-			}
-			
+
 			if(st.nextToken() == StreamTokenizer.TT_WORD && st.ttype != StreamTokenizer.TT_EOF) {
-				
+				tokens.add(new Token(Token.TokenType.PROG_NAME, st.sval, 0.0, st.lineno()));
 			}
 			
 			while (st.nextToken() != StreamTokenizer.TT_EOF) {
@@ -75,12 +66,9 @@ public class Tokenizer {
 			tt = Token.TokenType.ID;
         	break;
 		}
-<<<<<<< HEAD
 		sval = word;
-		return(new Token(tt, sval, 0.0));
-=======
+
 		return(new Token(tt, sval, 0.0, st.lineno()));
->>>>>>> 794a142d171a6ad2319eba7901a7860938918d4e
 	}
 
 	private Token buildSimbolToken(int val){
@@ -97,11 +85,11 @@ public class Tokenizer {
 		case "-": 
 			tt = Token.TokenType.DIF; 
 			break;
-		case "*": 
+		case "*":
 			tt = Token.TokenType.MULT; 
 			break;
 		case "/": 
-			tt = Token.TokenType.DIV; 
+			tt = Token.TokenType.DIV;
 			break;
 		case "==": 
 			tt = Token.TokenType.EQ; 
@@ -121,9 +109,23 @@ public class Tokenizer {
 		case "!=": 
 			tt = Token.TokenType.NE; 
 			break;
+		case "(": 
+			tt = Token.TokenType.OPEN_PAR; 
+			break;
+		case ")": 
+			tt = Token.TokenType.CLOSE_PAR; 
+			break;
+		case "{": 
+			tt = Token.TokenType.OPEN_KEY;
+			break;
+		case "}": 
+			tt = Token.TokenType.CLOSE_KEY; 
+			break;
+		case ";": 
+			tt = Token.TokenType.SEMICOLLON;
+			break;
 		}
 		return(new Token(tt, simbolo, 0.0, st.lineno()));
 	}
 	
 }
-

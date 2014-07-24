@@ -12,7 +12,9 @@ public class Token {
 		ID, 
 		SUM, DIF, MULT, DIV,
 		//Equal, LesserThan, GreaterThan, LesserOrEqual, GreaterOrEqual, NotEqual
-		EQ, LT, GT, LE, GE, NE
+		EQ, LT, GT, LE, GE, NE,
+		SEMICOLLON,
+		OPEN_PAR, CLOSE_PAR,OPEN_KEY, CLOSE_KEY;
 	};
 
 	TokenType tipo;
