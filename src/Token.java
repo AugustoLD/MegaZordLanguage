@@ -17,11 +17,13 @@ public class Token {
 	TokenType tipo;
 	String key;
 	Double numValue;
+	int position;
 
-	Token(TokenType t, String key, Double numValue){
+	Token(TokenType t, String key, Double numValue, int position){
 		this.tipo = t;
 		this.key = key;
 		this.numValue = numValue;
+		this.position = position;
 	}
 
 	public TokenType getType() {
@@ -29,7 +31,14 @@ public class Token {
 	}
 
 	public String toString() {
-		return("<" + tipo + ", " + key + ", " + numValue + ">");
+		return("<" + tipo + ", " + key + ", " + numValue +", " + position + ">");
 	}
-
+	
+	public int getPosition(){
+		return this.position;
+	}
+	
+	public void setPosition(int position){
+		this.position = position;
+	}
 }
