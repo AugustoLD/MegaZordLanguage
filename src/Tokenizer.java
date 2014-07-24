@@ -14,7 +14,7 @@ public class Tokenizer {
 			st = new StreamTokenizer(br);
 
 			if(st.nextToken() == StreamTokenizer.TT_WORD && st.ttype != StreamTokenizer.TT_EOF) {
-				tokens.add(new Token(Token.TokenType.PROG_NAME, st.sval, 0.0, st.lineno()));
+				tokens.add(new Token(Token.TokenType.PROG_NAME, parseIdName(st.sval), 0.0, st.lineno()));
 			}
 			
 			while (st.nextToken() != StreamTokenizer.TT_EOF) {
@@ -32,28 +32,43 @@ public class Tokenizer {
 			System.out.println(e.getMessage());
 		}
 	}
+	
+	private String parseIdName(String word){
+		try {
+			while(st.nextToken() == '_' || st.ttype == StreamTokenizer.TT_WORD || st.ttype == StreamTokenizer.TT_NUMBER) {
+				if(st.ttype == StreamTokenizer.TT_WORD)
+					word += st.sval;
+				else if(st.ttype == StreamTokenizer.TT_NUMBER)
+					word += String.valueOf(st.nval);
+				else if(st.ttype == '_')
+					word += '_';
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return word;
+	}
 
 	private Token buildWordToken(String word){
 		Token.TokenType tt = null;
-		String sval = "";
 
 		switch(word.toUpperCase()) {
 		case "IF": 
 			tt = Token.TokenType.IF_DECL;
 			break;
-		case "ELSE": 
+		case "ELSE":
 			tt = Token.TokenType.ELSE_DECL; 
 			break;
-		case "WHILE": 
+		case "WHILE":
 			tt = Token.TokenType.WHILE_DECL; 
 			break;
-		case "INT": 
+		case "INT":
 			tt = Token.TokenType.INT_TYPE; 
 			break;
-		case "CHAR": 
+		case "CHAR":
 			tt = Token.TokenType.CHAR_TYPE; 
 			break;
-		case "BOOL": 
+		case "BOOL":
 			tt = Token.TokenType.BOOL_TYPE; 
 			break;
 		case "TRUE": 
@@ -64,11 +79,11 @@ public class Tokenizer {
 			break;
 		default:
 			tt = Token.TokenType.ID;
+			word = parseIdName(word);
         	break;
 		}
-		sval = word;
-
-		return(new Token(tt, sval, 0.0, st.lineno()));
+		
+		return(new Token(tt, word, 0.0, st.lineno()));
 	}
 
 	private Token buildSimbolToken(int val){
