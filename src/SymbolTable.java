@@ -20,7 +20,7 @@ public class SymbolTable{
 	
 	public void mostrarTabela(){
 		System.out.println("+-------+---------------+");
-		System.out.println("| Chave | Valor         |");
+		System.out.println("|  ID   | CHAVE         |");
 		System.out.println("+-------+---------------+");
 
 		for(int i = 0; i < lista.size(); i++){

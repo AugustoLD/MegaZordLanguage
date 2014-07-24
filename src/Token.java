@@ -17,15 +17,25 @@ public class Token {
 	};
 
 	TokenType tipo;
+	int position;
 	String key;
 	Double numValue;
-	int position;
+	int line;
 
-	Token(TokenType t, String key, Double numValue, int position){
+	Token(TokenType t, String key, Double numValue, int line){
 		this.tipo = t;
+		this.position=-1;
 		this.key = key;
 		this.numValue = numValue;
+		this.line = line;
+	}
+	
+	Token(TokenType t, int position, String key, Double numValue, int line){
+		this.tipo = t;
 		this.position = position;
+		this.key = key;
+		this.numValue = numValue;
+		this.line = line;
 	}
 
 	public TokenType getType() {
@@ -33,7 +43,7 @@ public class Token {
 	}
 
 	public String toString() {
-		return("<" + tipo + ", " + key + ", " + numValue +", " + position + ">");
+		return("<" + tipo +", "+ position +", " + key + ", " + numValue +", " + line + ">");
 	}
 	
 	public int getPosition(){
