@@ -4,6 +4,7 @@ import java.util.*;
 public class Tokenizer {
 	BufferedReader br;
 	StreamTokenizer st = null;
+	SymbolTable sb;
 
 	Tokenizer(BufferedReader br) {
 		this.br = br;
@@ -15,6 +16,10 @@ public class Tokenizer {
 
 			if(st.nextToken() == StreamTokenizer.TT_WORD && st.ttype != StreamTokenizer.TT_EOF) {
 				tokens.add(new Token(Token.TokenType.PROG_NAME, parseIdName(st.sval), 0.0, st.lineno()));
+				sb.put(tokens.lastElement().key, new TableEntry());
+			} else if (st.ttype == '_' && st.ttype != StreamTokenizer.TT_EOF) {
+				tokens.add(new Token(Token.TokenType.PROG_NAME, parseIdName("_"), 0.0, st.lineno()));
+				sb.put(tokens.lastElement().key, new TableEntry());
 			}
 			
 			while (st.nextToken() != StreamTokenizer.TT_EOF) {
@@ -30,6 +35,10 @@ public class Tokenizer {
 				} else if ((st.ttype != StreamTokenizer.TT_EOF) || (st.ttype != StreamTokenizer.TT_EOL)) {
 					tokens.add(buildSimbolToken(st.ttype));
 				}
+				
+				if (tokens.lastElement().tipo == Token.TokenType.ID) {
+					sb.put(tokens.lastElement().key, new TableEntry());
+				}
 			}
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
@@ -42,7 +51,7 @@ public class Tokenizer {
 				if(st.ttype == StreamTokenizer.TT_WORD)
 					word += st.sval;
 				else if(st.ttype == StreamTokenizer.TT_NUMBER)
-					word += String.valueOf(st.nval);
+					word += String.valueOf((int)st.nval);
 				else if(st.ttype == '_')
 					word += '_';
 			}
@@ -87,7 +96,6 @@ public class Tokenizer {
 		default:
 			tt = Token.TokenType.ID;
 			word = parseIdName(word);
-        	break;
 		}
 		
 		return(new Token(tt, word, 0.0, st.lineno()));
@@ -163,7 +171,11 @@ public class Tokenizer {
 		case ",": 
 			tt = Token.TokenType.COMMA;
 			break;
+		case "_":
+			tt = Token.TokenType.ID;
+			return(new Token(tt, parseIdName("_"), 0.0, st.lineno()));			
 		}
+		
 		return(new Token(tt, simbolo, 0.0, st.lineno()));
 	}
 	

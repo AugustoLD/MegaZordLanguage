@@ -1,6 +1,7 @@
-programa_exemplo() {
+__programa_exemplo8 () {
 	int i;
 	i = 0;
+	int _teste_1;
 
 	while(i < 10) {
 		if(i == 5) {

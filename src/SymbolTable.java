@@ -1,13 +1,11 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Hashtable;
 
+public class SymbolTable extends Hashtable<String, TableEntry>{
 
-public class SymbolTable{
-	List<String> lista = new ArrayList<String>(); 
+	private static final long serialVersionUID = 1L;
+	
 	/*
-	 *  int chave;
-	 *  String valor;
-	 */
+	List<String> lista = new ArrayList<String>(); 
 	
 	public int add(String str){
 		lista.add(str);
@@ -27,7 +25,7 @@ public class SymbolTable{
 			System.out.println("|  "+Integer.toString(i)+"  |"+lista.get(i));
 		}
 		System.out.println("+-------+---------------+");
-	}
+	}*/
 }
 
 
