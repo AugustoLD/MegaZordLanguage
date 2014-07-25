@@ -4,40 +4,39 @@ import java.util.*;
 public class Tokenizer {
 	BufferedReader br;
 	StreamTokenizer st = null;
-	SymbolTable sb;
 
 	Tokenizer(BufferedReader br) {
 		this.br = br;
 	}
 
-	public void run(Vector<Token> tokens, SymbolTable sb){
+	public void run(ArrayList<Token> tokens, SymbolTable sb){
 		try {
 			st = new StreamTokenizer(br);
 
 			if(st.nextToken() == StreamTokenizer.TT_WORD && st.ttype != StreamTokenizer.TT_EOF) {
-				tokens.add(new Token(Token.TokenType.PROG_NAME, parseIdName(st.sval), 0.0, st.lineno()));
-				sb.put(tokens.lastElement().key, new TableEntry());
+				tokens.add(new Token(Token.TokenType.PROG_NAME, buildIdName(st.sval), 0, st.lineno()));
+				sb.put(tokens.get(tokens.size()-1).key, new TableEntry());
 			} else if (st.ttype == '_' && st.ttype != StreamTokenizer.TT_EOF) {
-				tokens.add(new Token(Token.TokenType.PROG_NAME, parseIdName("_"), 0.0, st.lineno()));
-				sb.put(tokens.lastElement().key, new TableEntry());
+				tokens.add(new Token(Token.TokenType.PROG_NAME, buildIdName("_"), 0, st.lineno()));
+				sb.put(tokens.get(tokens.size()-1).key, new TableEntry());
 			}
 			
 			while (st.nextToken() != StreamTokenizer.TT_EOF) {
 				
 				if (String.valueOf((char) st.ttype).equals("\'")) {
-					tokens.add(new Token(Token.TokenType.CHAR, st.sval, 0.0, st.lineno()));
+					tokens.add(new Token(Token.TokenType.CHAR, st.sval, 0, st.lineno()));
 				} else if (String.valueOf((char) st.ttype).equals("\"")) {
-					tokens.add(new Token(Token.TokenType.STRING, st.sval, 0.0, st.lineno()));
+					tokens.add(new Token(Token.TokenType.STRING, st.sval, 0, st.lineno()));
 				} else if (st.ttype == StreamTokenizer.TT_NUMBER) {
-					tokens.add(new Token(Token.TokenType.NUMBER, "", st.nval, st.lineno()));
+					tokens.add(new Token(Token.TokenType.NUMBER, "", (int)st.nval, st.lineno()));
 				} else if(st.ttype == StreamTokenizer.TT_WORD) {
 					tokens.add(buildWordToken(st.sval));
 				} else if ((st.ttype != StreamTokenizer.TT_EOF) || (st.ttype != StreamTokenizer.TT_EOL)) {
 					tokens.add(buildSimbolToken(st.ttype));
 				}
 				
-				if (tokens.lastElement().tipo == Token.TokenType.ID) {
-					sb.put(tokens.lastElement().key, new TableEntry());
+				if (tokens.get(tokens.size()-1).tipo == Token.TokenType.ID) {
+					sb.put(tokens.get(tokens.size()-1).key, new TableEntry());
 				}
 			}
 		} catch(Exception e) {
@@ -45,7 +44,7 @@ public class Tokenizer {
 		}
 	}
 	
-	private String parseIdName(String word){
+	private String buildIdName(String word){
 		try {
 			while(st.nextToken() == '_' || st.ttype == StreamTokenizer.TT_WORD || st.ttype == StreamTokenizer.TT_NUMBER) {
 				if(st.ttype == StreamTokenizer.TT_WORD)
@@ -95,10 +94,10 @@ public class Tokenizer {
 			break;
 		default:
 			tt = Token.TokenType.ID;
-			word = parseIdName(word);
+			word = buildIdName(word);
 		}
 		
-		return(new Token(tt, word, 0.0, st.lineno()));
+		return(new Token(tt, word, 0, st.lineno()));
 	}
 
 	private Token buildSimbolToken(int val) throws IOException{
@@ -173,10 +172,10 @@ public class Tokenizer {
 			break;
 		case "_":
 			tt = Token.TokenType.ID;
-			return(new Token(tt, parseIdName("_"), 0.0, st.lineno()));			
+			return(new Token(tt, buildIdName("_"), 0, st.lineno()));			
 		}
 		
-		return(new Token(tt, simbolo, 0.0, st.lineno()));
+		return(new Token(tt, simbolo, 0, st.lineno()));
 	}
 	
 }

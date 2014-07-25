@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Token {
   
 	public enum TokenType {
@@ -16,31 +18,44 @@ public class Token {
 	TokenType tipo;
 	int position;
 	String key;
-	Double numValue;
+	int numValue;
 	int line;
-
-	Token(TokenType t, String key, Double numValue, int line){
+	
+	Token(TokenType t, String key, int numValue, int line){
 		this.tipo = t;
-		this.position=-1;
 		this.key = key;
 		this.numValue = numValue;
 		this.line = line;
+	}
+
+	public static ArrayList<String> getAttributesNames() {
+		ArrayList<String> attributesNames = new ArrayList<>();
+		
+		attributesNames.add("Token Type");
+		attributesNames.add("Key");
+		attributesNames.add("Numeric Value");
+		attributesNames.add("Line");
+		
+		return attributesNames; 
 	}
 	
-	Token(TokenType t, int position, String key, Double numValue, int line){
-		this.tipo = t;
-		this.position = position;
-		this.key = key;
-		this.numValue = numValue;
-		this.line = line;
-	}
-
 	public TokenType getType() {
 		return(this.tipo);
 	}
 
 	public String toString() {
 		return("<" + tipo +", " + key + ", " + numValue +", " + line + ">");
+	}
+	
+	public ArrayList<String> getStringVector() {
+		ArrayList<String> attributesToVector = new ArrayList<>();
+
+		attributesToVector.add(tipo.toString());
+		attributesToVector.add(key);
+		attributesToVector.add(String.valueOf(numValue));
+		attributesToVector.add(String.valueOf(line));
+		
+		return attributesToVector;
 	}
 	
 	public int getPosition(){

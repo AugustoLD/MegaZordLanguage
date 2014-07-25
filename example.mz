@@ -1,4 +1,4 @@
-__programa_exemplo8 () {
+programa_exemplo_testando() {
 	int i;
 	i = 0;
 	int _teste_1;
