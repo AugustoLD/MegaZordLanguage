@@ -1,0 +1,40 @@
+*----------------------------------------------*
+*		MegaZord Compiler              *
+*----------------------------------------------*
+*Authors: Augusto Lopez Dantas		       *
+*	  Daniel Yang Chow		       *
+*	  Douglas da Paz Silva		       *
+*	  Gabriel Putrick		       *
+*----------------------------------------------*
+*License: This software is under GNU General   *
+*	  Public License (GPL-3.0) and can     *
+*	  be found at 			       *
+*	http://opensource.org/licenses/GPL-3.0 *
+*----------------------------------------------*
+
+*---------------Description--------------------*
+Compiler made as a work of the discipline of
+Compilators at Universidade Estadual do Oeste
+do Paraná - Foz do Iguaçu, only intended to be
+a didact compilator of a simple programming
+language. It's release WITHOUT any warranty.
+*----------------------------------------------*
+
+*--------------------Usage---------------------*
+For instance, this compiler is only generating
+a token list and a symbol table.
+
+To use it, you have to execute via command line
+the Compiler.class file, which is in the bin/
+directory.
+
+	$ java Compiler file.mz
+
+The standard output is a formated table for the
+token list and a string output (provided by the 
+HashTable Class) for the symbol table.
+Instead of the formated table, you can have a 
+simpler output for the token list by passing
+the parameter "simple" after the file.
+
+	$ java Compiler file.mz simple	
