@@ -38,3 +38,4 @@ simpler output for the token list by passing
 the parameter "simple" after the file.
 
 	$ java Compiler file.mz simple	
+*----------------------------------------------*
