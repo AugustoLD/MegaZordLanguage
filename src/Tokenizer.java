@@ -13,14 +13,6 @@ public class Tokenizer {
 		try {
 			st = new StreamTokenizer(br);
 
-			if(st.nextToken() == StreamTokenizer.TT_WORD && st.ttype != StreamTokenizer.TT_EOF) {
-				tokens.add(new Token(Token.TokenType.PROG_NAME, buildIdName(st.sval), 0, st.lineno()));
-				sb.put(tokens.get(tokens.size()-1).key, new TableEntry());
-			} else if (st.ttype == '_' && st.ttype != StreamTokenizer.TT_EOF) {
-				tokens.add(new Token(Token.TokenType.PROG_NAME, buildIdName("_"), 0, st.lineno()));
-				sb.put(tokens.get(tokens.size()-1).key, new TableEntry());
-			}
-			
 			while (st.nextToken() != StreamTokenizer.TT_EOF) {
 				
 				if (String.valueOf((char) st.ttype).equals("\'")) {
