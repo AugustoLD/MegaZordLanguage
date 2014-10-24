@@ -2,11 +2,11 @@ import java.util.ArrayList;
 
 public class Token {
   
-	TokenType tipo;
-	int position;
-	String key;
-	int numValue;
-	int line;
+	private TokenType tipo;
+	private int position;
+	private String key;
+	private int numValue;
+	private int line;
 	
 	Token(TokenType t, String key, int numValue, int line){
 		this.tipo = t;
@@ -52,4 +52,37 @@ public class Token {
 	public void setPosition(int position){
 		this.position = position;
 	}
+	
+	public String getKey() {
+		return this.key;
+	}
+
+	public TokenType getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(TokenType tipo) {
+		this.tipo = tipo;
+	}
+
+	public int getNumValue() {
+		return numValue;
+	}
+
+	public void setNumValue(int numValue) {
+		this.numValue = numValue;
+	}
+
+	public int getLine() {
+		return line;
+	}
+
+	public void setLine(int line) {
+		this.line = line;
+	}
+
+	public void setKey(String key) {
+		this.key = key;
+	}
+	
 }

@@ -20,15 +20,15 @@ public class Tokenizer {
 				} else if (String.valueOf((char) st.ttype).equals("\"")) {
 					tokens.add(new Token(TokenType.STRING, st.sval, 0, st.lineno()));
 				} else if (st.ttype == StreamTokenizer.TT_NUMBER) {
-					tokens.add(new Token(TokenType.NUMBER, "", (int)st.nval, st.lineno()));
+					tokens.add(new Token(TokenType.NUMBER, Integer.toString((int)st.nval), (int)st.nval, st.lineno()));
 				} else if(st.ttype == StreamTokenizer.TT_WORD) {
 					tokens.add(buildWordToken(st.sval));
 				} else if ((st.ttype != StreamTokenizer.TT_EOF) || (st.ttype != StreamTokenizer.TT_EOL)) {
 					tokens.add(buildSimbolToken(st.ttype));
 				}
 				
-				if (tokens.get(tokens.size()-1).tipo == TokenType.ID) {
-					sb.put(tokens.get(tokens.size()-1).key, new TableEntry());
+				if (tokens.get(tokens.size()-1).getType() == TokenType.ID) {
+					sb.put(tokens.get(tokens.size()-1).getKey(), new TableEntry());
 				}
 			}
 		} catch(Exception e) {
