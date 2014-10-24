@@ -13,6 +13,9 @@ public class Compiler {
 			br = new BufferedReader(new FileReader(args[0]));
 			tok = new Tokenizer(br);
 			tok.run(tokenList, symbolTable);
+			
+			
+			/* chama aqui */
 
 			if(args.length > 1 && args[1].equals("simple")){
 				System.out.println("==Token List==");

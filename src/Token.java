@@ -2,19 +2,6 @@ import java.util.ArrayList;
 
 public class Token {
   
-	public enum TokenType {
-		ATTR,
-		INT_TYPE, CHAR_TYPE, BOOL_TYPE, 
-		IF_DECL, ELSE_DECL, 
-		WHILE_DECL,
-		NUMBER, CHAR, BOOL, STRING,
-		ID, PROG_NAME, PRINT,
-		PLUS, MINUS, MULT, DIV,
-		EQ, NE, LT, GT, LE, GE,
-		COMMA, SEMICOLLON,
-		L_PAR, R_PAR,L_BRACE, R_BRACE;
-	};
-
 	TokenType tipo;
 	int position;
 	String key;

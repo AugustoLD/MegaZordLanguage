@@ -16,18 +16,18 @@ public class Tokenizer {
 			while (st.nextToken() != StreamTokenizer.TT_EOF) {
 				
 				if (String.valueOf((char) st.ttype).equals("\'")) {
-					tokens.add(new Token(Token.TokenType.CHAR, st.sval, 0, st.lineno()));
+					tokens.add(new Token(TokenType.CHAR, st.sval, 0, st.lineno()));
 				} else if (String.valueOf((char) st.ttype).equals("\"")) {
-					tokens.add(new Token(Token.TokenType.STRING, st.sval, 0, st.lineno()));
+					tokens.add(new Token(TokenType.STRING, st.sval, 0, st.lineno()));
 				} else if (st.ttype == StreamTokenizer.TT_NUMBER) {
-					tokens.add(new Token(Token.TokenType.NUMBER, "", (int)st.nval, st.lineno()));
+					tokens.add(new Token(TokenType.NUMBER, "", (int)st.nval, st.lineno()));
 				} else if(st.ttype == StreamTokenizer.TT_WORD) {
 					tokens.add(buildWordToken(st.sval));
 				} else if ((st.ttype != StreamTokenizer.TT_EOF) || (st.ttype != StreamTokenizer.TT_EOL)) {
 					tokens.add(buildSimbolToken(st.ttype));
 				}
 				
-				if (tokens.get(tokens.size()-1).tipo == Token.TokenType.ID) {
+				if (tokens.get(tokens.size()-1).tipo == TokenType.ID) {
 					sb.put(tokens.get(tokens.size()-1).key, new TableEntry());
 				}
 			}
@@ -54,38 +54,38 @@ public class Tokenizer {
 	}
 
 	private Token buildWordToken(String word){
-		Token.TokenType tt = null;
+		TokenType tt = null;
 
 		switch(word.toUpperCase()) {
 		case "IF": 
-			tt = Token.TokenType.IF_DECL;
+			tt = TokenType.IF_DECL;
 			break;
 		case "ELSE":
-			tt = Token.TokenType.ELSE_DECL; 
+			tt = TokenType.ELSE_DECL; 
 			break;
 		case "WHILE":
-			tt = Token.TokenType.WHILE_DECL; 
+			tt = TokenType.WHILE_DECL; 
 			break;
 		case "INT":
-			tt = Token.TokenType.INT_TYPE; 
+			tt = TokenType.INT_TYPE; 
 			break;
 		case "CHAR":
-			tt = Token.TokenType.CHAR_TYPE; 
+			tt = TokenType.CHAR_TYPE; 
 			break;
 		case "BOOL":
-			tt = Token.TokenType.BOOL_TYPE; 
+			tt = TokenType.BOOL_TYPE; 
 			break;
 		case "TRUE": 
-			tt = Token.TokenType.BOOL; 
+			tt = TokenType.BOOL; 
 			break;
 		case "FALSE": 
-			tt = Token.TokenType.BOOL; 
+			tt = TokenType.BOOL; 
 			break;
 		case "PRINT": 
-			tt = Token.TokenType.PRINT; 
+			tt = TokenType.PRINT; 
 			break;
 		default:
-			tt = Token.TokenType.ID;
+			tt = TokenType.ID;
 			word = buildIdName(word);
 		}
 		
@@ -93,77 +93,77 @@ public class Tokenizer {
 	}
 
 	private Token buildSimbolToken(int val) throws IOException{
-		Token.TokenType tt = null;
+		TokenType tt = null;
 		String simbolo = String.valueOf((char) val);
 
 		switch(simbolo) {
 		case "=": 
 				if(st.nextToken() == '=') {
-					tt = Token.TokenType.EQ;
+					tt = TokenType.EQ;
 					simbolo += '=';
 				} else {
-					tt = Token.TokenType.ATTR;
+					tt = TokenType.ATTR;
 					st.pushBack();
 				}
 				break;
 		case "+": 
-			tt = Token.TokenType.PLUS; 
+			tt = TokenType.PLUS; 
 			break;
 		case "-": 
-			tt = Token.TokenType.MINUS; 
+			tt = TokenType.MINUS; 
 			break;
 		case "*":
-			tt = Token.TokenType.MULT; 
+			tt = TokenType.MULT; 
 			break;
 		case "/": 
-			tt = Token.TokenType.DIV;
+			tt = TokenType.DIV;
 			break;
 		case ">":
 			if(st.nextToken() == '=') {
-				tt = Token.TokenType.GE;
+				tt = TokenType.GE;
 				simbolo += '=';
 			} else {
-				tt = Token.TokenType.GT;
+				tt = TokenType.GT;
 				st.pushBack();
 			}
 			break;
 		case "<":
 			if(st.nextToken() == '=') {
-				tt = Token.TokenType.LE;
+				tt = TokenType.LE;
 				simbolo += '=';
 			} else {
-				tt = Token.TokenType.LT;
+				tt = TokenType.LT;
 				st.pushBack();
 			}
 			break;
 		case "!": 
 			if(st.nextToken() == '=') {
-				tt = Token.TokenType.NE;
+				tt = TokenType.NE;
 				simbolo += '=';
 			} else {
 				st.pushBack();
 			}
 			break;
 		case "(": 
-			tt = Token.TokenType.L_PAR; 
+			tt = TokenType.L_PAR; 
 			break;
 		case ")": 
-			tt = Token.TokenType.R_PAR; 
+			tt = TokenType.R_PAR; 
 			break;
 		case "{": 
-			tt = Token.TokenType.L_BRACE;
+			tt = TokenType.L_BRACE;
 			break;
 		case "}": 
-			tt = Token.TokenType.R_BRACE; 
+			tt = TokenType.R_BRACE; 
 			break;
 		case ";": 
-			tt = Token.TokenType.SEMICOLLON;
+			tt = TokenType.SEMICOLLON;
 			break;
 		case ",": 
-			tt = Token.TokenType.COMMA;
+			tt = TokenType.COMMA;
 			break;
 		case "_":
-			tt = Token.TokenType.ID;
+			tt = TokenType.ID;
 			return(new Token(tt, buildIdName("_"), 0, st.lineno()));			
 		}
 		
