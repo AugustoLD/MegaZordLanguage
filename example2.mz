@@ -1,0 +1,9 @@
+programa_exemplo_testando() {
+	int i;
+
+	while() {
+		if() {
+			print("i = ", i);
+		}
+	}
+}
