@@ -2,14 +2,14 @@ import java.util.ArrayList;
 
 public class Token {
   
-	private TokenType tipo;
+	private TokenType type;
 	private int position;
 	private String key;
 	private int numValue;
 	private int line;
 	
 	Token(TokenType t, String key, int numValue, int line){
-		this.tipo = t;
+		this.type = t;
 		this.key = key;
 		this.numValue = numValue;
 		this.line = line;
@@ -26,18 +26,14 @@ public class Token {
 		return attributesNames; 
 	}
 	
-	public TokenType getType() {
-		return(this.tipo);
-	}
-
 	public String toString() {
-		return("<" + tipo +", " + key + ", " + numValue +", " + line + ">");
+		return("<" + type +", " + key + ", " + numValue +", " + line + ">");
 	}
 	
 	public ArrayList<String> getStringVector() {
 		ArrayList<String> attributesToVector = new ArrayList<>();
 
-		attributesToVector.add(tipo.toString());
+		attributesToVector.add(type.toString());
 		attributesToVector.add(key);
 		attributesToVector.add(String.valueOf(numValue));
 		attributesToVector.add(String.valueOf(line));
@@ -56,13 +52,13 @@ public class Token {
 	public String getKey() {
 		return this.key;
 	}
-
-	public TokenType getTipo() {
-		return tipo;
+	
+	public TokenType getType() {
+		return type;
 	}
 
-	public void setTipo(TokenType tipo) {
-		this.tipo = tipo;
+	public void setType(TokenType type) {
+		this.type = type;
 	}
 
 	public int getNumValue() {

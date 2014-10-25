@@ -1,6 +1,6 @@
 programa_exemplo_testando() {
 	int i;
-
+	i = (2 + 5) * 7;
 	while() {
 		if() {
 			print("i = ", i);

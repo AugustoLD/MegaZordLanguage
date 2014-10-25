@@ -30,6 +30,7 @@ public class Compiler {
 			
 			syn = new Synthesizer(tokenList);
 			syn.run();
+			System.out.println("\n\nSyntax analisys completed without errors");
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
